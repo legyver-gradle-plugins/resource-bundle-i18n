@@ -1,0 +1,50 @@
+plugins {
+    id 'java-gradle-plugin'
+    id 'maven-publish'
+    id 'com.gradle.plugin-publish' version '0.18.0'
+}
+
+group 'com.legyver'
+version '0.1.0'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    implementation 'org.ow2.asm:asm:8.0.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.23.1'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+pluginBundle {
+    website = 'https://github.com/orgs/legyver-gradle-plugins/dashboard'
+    vcsUrl = 'https://github.com/legyver-gradle-plugins/resource-bundle-i18n.git'
+    tags = ['i18n', 'Internationalization', 'Resource Bundle', 'Properties', 'libretranslate']
+}
+
+gradlePlugin {
+    plugins {
+        resourceBundleI18n {
+            id = "com.legyver.resource-bundle-i18n"
+            displayName = "Generate translations of your resource bundle property files"
+            description  = "Auto-generates resource bundle translations based on original property file and sending the values to libretranslate for translation.  This ends up in a locale-specific property file"
+            implementationClass = "com.legyver.gradle.resourcebundlei18n.ResourceBundleI18nPlugin"
+        }
+    }
+}
+
+publishing {
+    repositories {
+        maven {
+            name = 'localPluginRepository'
+            url = 'C:/dev/local-plugin-repository'
+        }
+    }
+}
