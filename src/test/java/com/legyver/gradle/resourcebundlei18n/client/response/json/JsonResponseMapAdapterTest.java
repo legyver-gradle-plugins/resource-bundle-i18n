@@ -12,15 +12,14 @@ public class JsonResponseMapAdapterTest {
 
     @Test
     public void adaptLibreTranslateLanguageIdentificationResponse() throws Exception {
-        String response = "[" +
-                "  {" +
+        String response =
+                "{" +
                 "    \"confidence\": 92," +
                 "    \"language\": \"en\"" +
-                "  }" +
-                "]";
-        Map<String, String> adapted = jsonResponseMapAdapter.adapt(response);
+                "}";
+        Map<String, Object> adapted = jsonResponseMapAdapter.adapt(response);
         assertThat(adapted).hasSize(2);
-        assertThat(adapted.get("confidence")).isEqualTo("92");
+        assertThat(adapted.get("confidence")).isEqualTo(92);
         assertThat(adapted.get("language")).isEqualTo("en");
     }
 
@@ -29,7 +28,7 @@ public class JsonResponseMapAdapterTest {
         String response = "{" +
                 "  \"translatedText\": \"hola\"" +
                 "}";
-        Map<String, String> adapted = jsonResponseMapAdapter.adapt(response);
+        Map<String, Object> adapted = jsonResponseMapAdapter.adapt(response);
         assertThat(adapted).hasSize(1);
         assertThat(adapted.get("translatedText")).isEqualTo("hola");
     }
@@ -39,7 +38,14 @@ public class JsonResponseMapAdapterTest {
         String response = "{" +
                 "  \"translatedText\": \"hola, senor\"" +
                 "}";
-        Map<String, String> adapted = jsonResponseMapAdapter.adapt(response);
+        Map<String, Object> adapted = jsonResponseMapAdapter.adapt(response);
+        assertThat(adapted).hasSize(1);
+        assertThat(adapted.get("translatedText")).isEqualTo("hola, senor");
+    }
+
+    @Test void adaptTranslationResponseWithNoWhitespaceSeparators() throws Exception {
+        String response = "{\"translatedText\": \"hola, senor\"}";
+        Map<String, Object> adapted = jsonResponseMapAdapter.adapt(response);
         assertThat(adapted).hasSize(1);
         assertThat(adapted.get("translatedText")).isEqualTo("hola, senor");
     }
@@ -49,38 +55,8 @@ public class JsonResponseMapAdapterTest {
         String response = "{" +
                 "  \"myvar\": null" +
                 "}";
-        Map<String, String> adapted = jsonResponseMapAdapter.adapt(response);
+        Map<String, Object> adapted = jsonResponseMapAdapter.adapt(response);
         assertThat(adapted).hasSize(1);
         assertThat(adapted.get("myvar")).isNull();
-    }
-
-    @Test
-    public void adaptNull() {
-        Map<String, String> adapted = jsonResponseMapAdapter.adapt(null);
-        assertThat(adapted.isEmpty());
-    }
-
-    @Test
-    public void adaptEmpty() {
-        Map<String, String> adapted = jsonResponseMapAdapter.adapt("");
-        assertThat(adapted.isEmpty());
-    }
-
-    @Test
-    public void adaptBlank() {
-        Map<String, String> adapted = jsonResponseMapAdapter.adapt(" ");
-        assertThat(adapted.isEmpty());
-    }
-
-    @Test
-    public void adaptBlanks() {
-        Map<String, String> adapted = jsonResponseMapAdapter.adapt("  ");
-        assertThat(adapted.isEmpty());
-    }
-
-    @Test
-    public void adaptWhitespace() {
-        Map<String, String> adapted = jsonResponseMapAdapter.adapt(" \t\n");
-        assertThat(adapted.isEmpty());
     }
 }

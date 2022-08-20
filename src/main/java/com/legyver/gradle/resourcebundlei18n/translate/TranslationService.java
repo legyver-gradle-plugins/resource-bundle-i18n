@@ -1,5 +1,6 @@
 package com.legyver.gradle.resourcebundlei18n.translate;
 
+import com.legyver.core.exception.CoreException;
 import com.legyver.gradle.resourcebundlei18n.client.Client;
 import org.gradle.api.logging.Logger;
 import org.gradle.api.logging.Logging;
@@ -58,6 +59,9 @@ public class TranslationService {
             } catch (IOException | URISyntaxException ioException) {
                 logger.error("Error detecting language", ioException);
                 throw new RuntimeException(ioException);
+            } catch (CoreException coreException) {
+                logger.error("Error processing response while detecting language", coreException);
+                throw new RuntimeException(coreException);
             }
         }
 
@@ -74,11 +78,14 @@ public class TranslationService {
             } catch (IOException ioException) {
                 logger.error("Error doing translation", ioException);
                 throw new RuntimeException(ioException);
+            } catch (CoreException coreException) {
+                logger.error("Error reading response");
+                throw new RuntimeException(coreException);
             }
         }
     }
 
-    private String detectLanguage(Properties inputProperties) throws IOException, URISyntaxException {
+    private String detectLanguage(Properties inputProperties) throws IOException, URISyntaxException, CoreException {
         //clump all the text together.
         StringJoiner stringJoiner = new StringJoiner(". ");
         for (String key : inputProperties.stringPropertyNames()) {
@@ -88,7 +95,7 @@ public class TranslationService {
         return client.detectLanguage(text);
     }
 
-    protected Properties translateProperties(Properties sourceProperties, String sourceLanguage, String sourceCountry, String targetLanguage) throws IOException {
+    protected Properties translateProperties(Properties sourceProperties, String sourceLanguage, String sourceCountry, String targetLanguage) throws IOException, CoreException {
         Properties properties = new Properties();
 
         String[] parts = targetLanguage.split("_");

@@ -33,14 +33,13 @@ public class LibreTranslationApiTest {
     }
 
     @Test
-    public void getLanguageFromDetectionResponse() {
+    public void getLanguageFromDetectionResponse() throws Exception {
         String expected = "en";
-        String response = "[" +
-                  "  {" +
+        String response =
+                  "{" +
                   "    \"confidence\": 92," +
                   "    \"language\": \"en\"" +
-                  "  }" +
-                  "]";
+                  "}";
         LibreTranslationApi libreTranslationApi = new LibreTranslationApi();
         libreTranslationApi.setStrategy(new DetectLanguageApiStrategy());
         assertThat(libreTranslationApi.getResult(response)).isEqualTo(expected);
@@ -71,7 +70,7 @@ public class LibreTranslationApiTest {
     }
 
     @Test
-    public void getLanguageFromTranslationResponse() {
+    public void getLanguageFromTranslationResponse() throws Exception {
         String expected = "hola";
         String response = "{\n" +
                 "  \"translatedText\": \"hola\"\n" +

@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class LanguageIdentificationResponseAdapterTest {
     @Test
-    public void parseLanguageFromLibreTranslateResponse() {
+    public void parseLanguageFromLibreTranslateResponse() throws Exception {
         String response = "[" +
                 "  {" +
                 "    \"confidence\": 92," +

@@ -1,5 +1,6 @@
 package com.legyver.gradle.resourcebundlei18n.client.response.decorator;
 
+import com.legyver.core.exception.CoreException;
 import com.legyver.gradle.resourcebundlei18n.client.response.ResponseAdapter;
 import com.legyver.gradle.resourcebundlei18n.client.response.TranslationResponseAdapter;
 
@@ -12,8 +13,12 @@ public class TranslationMapDecorator extends  AbstractResponseAdapterDecorator<M
     }
 
     @Override
-    public String getTranslation(String responseAsString) {
-        Map<String, String> adaptedMap = adapt(responseAsString);
-        return adaptedMap.get("translatedText");
+    public String getTranslation(String responseAsString) throws CoreException {
+        Map<String, Object> adaptedMap = adapt(responseAsString);
+        Object value = adaptedMap.get("translatedText");
+        if (value != null) {
+            value = value.toString();
+        }
+        return (String) value;
     }
 }

@@ -1,5 +1,6 @@
 package com.legyver.gradle.resourcebundlei18n.client.response.decorator;
 
+import com.legyver.core.exception.CoreException;
 import com.legyver.gradle.resourcebundlei18n.client.response.LanguageIdentificationResponseAdapter;
 import com.legyver.gradle.resourcebundlei18n.client.response.json.JsonResponseMapAdapter;
 
@@ -12,9 +13,9 @@ public class LanguageIdentificationMapDecorator extends AbstractResponseAdapterD
     }
 
     @Override
-    public String getIdentifiedLanguage(String responseAsString) {
-        Map<String, String> adaptedMap = adapt(responseAsString);
-        return adaptedMap.get("language");
+    public String getIdentifiedLanguage(String responseAsString) throws CoreException {
+        Map<String, Object> adaptedMap = adapt(responseAsString);
+        return (String) adaptedMap.get("language");
     }
 
 }

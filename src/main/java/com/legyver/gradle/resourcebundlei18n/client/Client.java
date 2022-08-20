@@ -1,5 +1,6 @@
 package com.legyver.gradle.resourcebundlei18n.client;
 
+import com.legyver.core.exception.CoreException;
 import com.legyver.gradle.resourcebundlei18n.client.api.DetectLanguageApiStrategy;
 import com.legyver.gradle.resourcebundlei18n.client.api.TranslationApi;
 import com.legyver.gradle.resourcebundlei18n.client.api.TranslationApiStrategy;
@@ -25,7 +26,7 @@ public class Client {
         this.responseReader = new ResponseReader();
     }
 
-    public String detectLanguage(String value) throws IOException, URISyntaxException {
+    public String detectLanguage(String value) throws IOException, URISyntaxException, CoreException {
         translationApi.setStrategy(new DetectLanguageApiStrategy());
         //curl -X POST "http://localhost:5000/detect" -H  "accept: application/json" -H  "Content-Type: application/x-www-form-urlencoded"
         // -d "q=Hello%20world!&api_key=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
@@ -47,7 +48,7 @@ public class Client {
         return translationApi.getResult(responseAsString);
     }
 
-    public String getTranslation(String textToTranslate, String sourceLanguage, String targetLanguage) throws IOException {
+    public String getTranslation(String textToTranslate, String sourceLanguage, String targetLanguage) throws IOException, CoreException {
         translationApi.setStrategy(new TranslationApiStrategy());
         //curl -X POST "http://localhost:5000/translate" -H  "accept: application/json" -H  "Content-Type: application/x-www-form-urlencoded"
         // -d "q=hello&source=en&target=es&format=text&api_key=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"

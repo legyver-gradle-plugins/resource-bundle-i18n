@@ -1,5 +1,7 @@
 package com.legyver.gradle.resourcebundlei18n.client.response;
 
+import com.legyver.core.exception.CoreException;
+
 /**
  * Adapter to adapter the client response
  */
@@ -15,5 +17,5 @@ public interface ResponseAdapter<T> {
      * @param responseAsString the response to adapt
      * @return the adapted response
      */
-    T adapt(String responseAsString);
+    T adapt(String responseAsString) throws CoreException;
 }

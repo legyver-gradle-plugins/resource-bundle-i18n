@@ -1,5 +1,7 @@
 package com.legyver.gradle.resourcebundlei18n.client.api;
 
+import com.legyver.core.exception.CoreException;
+
 public interface TranslationApi {
     String makeRequestBody(Object...values);
     String getAcceptedType();
@@ -7,7 +9,7 @@ public interface TranslationApi {
 
     void setStrategy(ApiStrategy apiStrategy);
 
-    String getResult(String responseAsString);
+    String getResult(String responseAsString) throws CoreException;
 
     String getEndpoint();
 }

@@ -1,5 +1,7 @@
 package com.legyver.gradle.resourcebundlei18n.client.api;
 
+import com.legyver.core.exception.CoreException;
+
 public class TranslationApiStrategy implements ApiStrategy {
     @Override
     public String getAcceptedType(AbstractTranslationApi abstractTranslationApi) {
@@ -17,7 +19,7 @@ public class TranslationApiStrategy implements ApiStrategy {
     }
 
     @Override
-    public String getResult(AbstractTranslationApi abstractTranslationApi, String responseAsString) {
+    public String getResult(AbstractTranslationApi abstractTranslationApi, String responseAsString) throws CoreException {
         return abstractTranslationApi.getTranslationFromTranslationResponse(responseAsString);
     }
 

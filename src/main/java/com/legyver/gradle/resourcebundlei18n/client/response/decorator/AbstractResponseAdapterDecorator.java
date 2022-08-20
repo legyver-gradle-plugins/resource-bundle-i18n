@@ -1,5 +1,6 @@
 package com.legyver.gradle.resourcebundlei18n.client.response.decorator;
 
+import com.legyver.core.exception.CoreException;
 import com.legyver.gradle.resourcebundlei18n.client.response.ResponseAdapter;
 
 public abstract class AbstractResponseAdapterDecorator<T> implements ResponseAdapter<T> {
@@ -16,7 +17,7 @@ public abstract class AbstractResponseAdapterDecorator<T> implements ResponseAda
     }
 
     @Override
-    public T adapt(String responseAsString) {
+    public T adapt(String responseAsString) throws CoreException {
         return responseAdapter.adapt(responseAsString);
     }
 }

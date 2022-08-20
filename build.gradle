@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'com.legyver'
-version '0.1.0'
+version '0.1.1'
 
 repositories {
     mavenCentral()
@@ -14,6 +14,7 @@ repositories {
 
 dependencies {
     implementation 'org.ow2.asm:asm:8.0.1'
+    implementation group: 'com.legyver', name: 'utils.jackiso', version: '3.0.0'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
     testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.23.1'

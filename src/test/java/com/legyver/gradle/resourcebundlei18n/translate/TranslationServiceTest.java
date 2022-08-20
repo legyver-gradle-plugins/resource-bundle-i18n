@@ -1,5 +1,6 @@
 package com.legyver.gradle.resourcebundlei18n.translate;
 
+import com.legyver.core.exception.CoreException;
 import com.legyver.gradle.resourcebundlei18n.TranslationClientType;
 import com.legyver.gradle.resourcebundlei18n.client.Client;
 import com.legyver.gradle.resourcebundlei18n.client.api.TranslationApi;
@@ -25,7 +26,7 @@ public class TranslationServiceTest {
         translationService.setClient(new Client(new URL("http://localhost:5000"), translationApi));
     }
 
-    private void loadAndTest(TestScenario testScenario, Consumer<Properties> asserter) throws IOException {
+    private void loadAndTest(TestScenario testScenario, Consumer<Properties> asserter) throws IOException, CoreException {
         Properties properties = new Properties();
         try (InputStream inputStream = TranslationServiceTest.class.getResourceAsStream(testScenario.propertyFile)) {
             properties.load(inputStream);
@@ -58,7 +59,7 @@ public class TranslationServiceTest {
 
     @Test
     public void translateEnglishToGerman() throws Exception {
-        loadAndTest(new TestScenario("test.properties")
+        loadAndTest(new TestScenario("test_en.properties")
                         .sourceLanguage("en")
                         .targetLanguage("de"),
                 properties -> {
@@ -72,7 +73,7 @@ public class TranslationServiceTest {
                         .sourceLanguage("es")
                         .targetLanguage("en_US"),
                 properties -> {
-                    assertThat(properties.get("hello")).isEqualTo("Hello, mister");
+                    assertThat(properties.get("hello")).isEqualTo("Hello, sir");
                 });
     }
 

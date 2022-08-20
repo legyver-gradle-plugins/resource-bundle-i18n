@@ -1,5 +1,6 @@
 package com.legyver.gradle.resourcebundlei18n.client.api;
 
+import com.legyver.core.exception.CoreException;
 import com.legyver.gradle.resourcebundlei18n.client.request.RequestAdapter;
 import com.legyver.gradle.resourcebundlei18n.client.response.LanguageIdentificationResponseAdapter;
 import com.legyver.gradle.resourcebundlei18n.client.response.TranslationResponseAdapter;
@@ -43,7 +44,7 @@ public abstract class AbstractTranslationApi implements TranslationApi {
     }
 
     @Override
-    public String getResult(String responseAsString) {
+    public String getResult(String responseAsString) throws CoreException {
         return apiStrategy.getResult(this, responseAsString);
     }
 
@@ -61,7 +62,7 @@ public abstract class AbstractTranslationApi implements TranslationApi {
     protected String makeRequestBodyContentForDetectionRequest(Object... values) {
         return languageIdentificationRequestAdapter.getContentAsString(values);
     }
-    protected String getLanguageFromDetectionResponse(String responseAsString) {
+    protected String getLanguageFromDetectionResponse(String responseAsString) throws CoreException {
         return languageIdentificationResponseAdapter.getIdentifiedLanguage(responseAsString);
     }
 
@@ -74,7 +75,7 @@ public abstract class AbstractTranslationApi implements TranslationApi {
     protected String makeRequestBodyContentForTranslationRequest(Object[] values) {
         return translationRequestAdapter.getContentAsString(values);
     }
-    protected String getTranslationFromTranslationResponse(String responseAsString) {
+    protected String getTranslationFromTranslationResponse(String responseAsString) throws CoreException {
         return translationResponseAdapter.getTranslation(responseAsString);
     }
 

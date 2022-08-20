@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TranslationResponseAdapterTest {
 
     @Test
-    public void parseLanguageFromLibreTranslateResponse() {
+    public void parseSpanishTranslationFromLibreTranslateResponse() throws Exception {
         String response = "{\n" +
                 "  \"translatedText\": \"hola\"\n" +
                 "}";
@@ -16,5 +16,16 @@ public class TranslationResponseAdapterTest {
         TranslationMapDecorator decorator = new TranslationMapDecorator(jsonResponseMapAdapter);
         String translation = decorator.getTranslation(response);
         assertThat(translation).isEqualTo("hola");
+    }
+
+    @Test
+    public void parseGermanTranslationFromLibreTranslateResponse() throws Exception {
+        String response = "{" +
+                "\"translatedText\":\"Willkommen im Dschungel.\"" +
+                "}";
+        JsonResponseMapAdapter jsonResponseMapAdapter = new JsonResponseMapAdapter();
+        TranslationMapDecorator decorator = new TranslationMapDecorator(jsonResponseMapAdapter);
+        String translation = decorator.getTranslation(response);
+        assertThat(translation).isEqualTo("Willkommen im Dschungel.");
     }
 }
