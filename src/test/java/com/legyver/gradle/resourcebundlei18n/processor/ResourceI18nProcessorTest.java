@@ -45,14 +45,14 @@ public class ResourceI18nProcessorTest {
         String dirName = "out-test";
         File file = new File(dirName);
         String absolutePath = file.getAbsolutePath();
-        String expectedBundleRelativePathWindows = "com/legyver/fenxlib/samples";
-        String expectedAbsoluteBundlePathWindows = absolutePath + "/" + expectedBundleRelativePathWindows;
+        String expectedBundleRelativePathNix = "com/legyver/fenxlib/samples";
+        String expectedAbsoluteBundlePathNix = absolutePath + "/" + expectedBundleRelativePathNix;
         Client client = new Client(new URL("http://localhost:5000"), TranslationClientType.LIBRETRANSLATE.getTranslationApi(null));
         ResourceI18nProcessor resourceI18nProcessor = new ResourceI18nProcessor(client, bundleName, new File(dirName));
         assertThat(resourceI18nProcessor.toString()).isEqualTo("ResourceI18nProcessor{" +
                 "bundleName='" + bundleName + '\'' +
-                ", bundleRelativePath='" + expectedBundleRelativePathWindows + '\'' +
-                ", bundleAbsolutePath='" + expectedAbsoluteBundlePathWindows + '\'' +
+                ", bundleRelativePath='" + expectedBundleRelativePathNix + '\'' +
+                ", bundleAbsolutePath='" + expectedAbsoluteBundlePathNix + '\'' +
                 ", bundleShortName='" + "about" + '\'' +
                 ", destinationDir=" + dirName +
                 '}');
@@ -60,7 +60,7 @@ public class ResourceI18nProcessorTest {
 
     @Test
     @EnabledOnOs(OS.WINDOWS)
-    public void processProperties() throws Exception {
+    public void processPropertiesWindows() throws Exception {
         String bundleName = "com.legyver.gradle.resourcebundlei18n.translate.test";
         File resourcesDir = new File("src\\test\\resources");
         Client client = new Client(new URL("http://localhost:5000"), TranslationClientType.LIBRETRANSLATE.getTranslationApi(null));
