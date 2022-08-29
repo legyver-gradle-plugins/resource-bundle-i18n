@@ -14,8 +14,9 @@ public class LanguageIdentificationResponseAdapterTest {
                 "    \"language\": \"en\"" +
                 "  }" +
                 "]";
-        JsonResponseMapAdapter jsonResponseMapAdapter = new JsonResponseMapAdapter();
-        LanguageIdentificationMapDecorator decorator = new LanguageIdentificationMapDecorator(jsonResponseMapAdapter);
+        ListOfMapAdapter jsonResponseMapAdapter = new ListOfMapAdapter();
+        FirstOfListMapAdapter firstOfListMapAdapter = new FirstOfListMapAdapter(jsonResponseMapAdapter);
+        LanguageIdentificationMapDecorator decorator = new LanguageIdentificationMapDecorator(firstOfListMapAdapter);
         String language = decorator.getIdentifiedLanguage(response);
         assertThat(language).isEqualTo("en");
     }

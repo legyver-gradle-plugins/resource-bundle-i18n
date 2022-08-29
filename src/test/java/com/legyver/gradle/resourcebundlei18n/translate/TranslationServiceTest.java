@@ -4,6 +4,7 @@ import com.legyver.core.exception.CoreException;
 import com.legyver.gradle.resourcebundlei18n.TranslationClientType;
 import com.legyver.gradle.resourcebundlei18n.client.Client;
 import com.legyver.gradle.resourcebundlei18n.client.api.TranslationApi;
+import com.legyver.utils.propl.PropertyList;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +12,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Properties;
 import java.util.function.Consumer;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -26,11 +26,11 @@ public class TranslationServiceTest {
         translationService.setClient(new Client(new URL("http://localhost:5000"), translationApi));
     }
 
-    private void loadAndTest(TestScenario testScenario, Consumer<Properties> asserter) throws IOException, CoreException {
-        Properties properties = new Properties();
+    private void loadAndTest(TestScenario testScenario, Consumer<PropertyList> asserter) throws IOException, CoreException {
+        PropertyList properties = new PropertyList();
         try (InputStream inputStream = TranslationServiceTest.class.getResourceAsStream(testScenario.propertyFile)) {
             properties.load(inputStream);
-            Properties translateProperties = translationService.translateProperties(properties, testScenario.sourceLanguage, testScenario.sourceCountry, testScenario.targetLanguage);
+            PropertyList translateProperties = translationService.translateProperties(properties, testScenario.sourceLanguage, testScenario.sourceCountry, testScenario.targetLanguage);
             asserter.accept(translateProperties);
         }
     }
@@ -42,7 +42,7 @@ public class TranslationServiceTest {
                         .sourceCountry("US")
                         .targetLanguage("en_GB"),
                 properties -> {
-            assertThat(properties.get("san")).isEqualTo("Sanitised");
+            assertThat(properties.getProperty("san")).isEqualTo("Sanitised");
         });
     }
 
@@ -53,7 +53,7 @@ public class TranslationServiceTest {
                         .sourceCountry("GB")
                         .targetLanguage("en_US"),
                 properties -> {
-            assertThat(properties.get("auth")).isEqualTo("authorized");
+            assertThat(properties.getProperty("auth")).isEqualTo("authorized");
         });
     }
 
@@ -63,7 +63,7 @@ public class TranslationServiceTest {
                         .sourceLanguage("en")
                         .targetLanguage("de"),
                 properties -> {
-            assertThat(properties.get("welcome")).isEqualTo("Willkommen im Dschungel.");
+            assertThat(properties.getProperty("welcome")).isEqualTo("Willkommen im Dschungel.");
         });
     }
 
@@ -73,7 +73,7 @@ public class TranslationServiceTest {
                         .sourceLanguage("es")
                         .targetLanguage("en_US"),
                 properties -> {
-                    assertThat(properties.get("hello")).isEqualTo("Hello, sir");
+                    assertThat(properties.getProperty("hello")).isEqualTo("Hello, sir");
                 });
     }
 

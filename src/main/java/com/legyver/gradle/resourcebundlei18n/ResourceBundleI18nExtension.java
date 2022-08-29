@@ -1,5 +1,6 @@
 package com.legyver.gradle.resourcebundlei18n;
 
+import org.gradle.api.provider.ListProperty;
 import org.gradle.api.provider.Property;
 
 
@@ -12,12 +13,14 @@ import org.gradle.api.provider.Property;
  *         bundleName = "com.example.bundle" //this will match src/main/resources/com/example/bundle.properties as the source
  *         client = "LIBRETRANSLATE" //the client to use to communicate with the translationUrl
  *         //("LIBRETRANSLATE" is also the default value as it is the only client supported at this time)
+ *         apiKey = "some key"
  *     }
  * </code>
  */
 public interface ResourceBundleI18nExtension {
     Property<String> getTranslationUrl();
-    Property<String[]> getTargetLanguages();
+    ListProperty<String> getTargetLanguages();
     Property<String> getBundleName();
     Property<String> getClient();
+    Property<String> getClientApiKey();
 }

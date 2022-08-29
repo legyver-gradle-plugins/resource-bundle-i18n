@@ -24,9 +24,11 @@ public class CountryCountryTranslation {
         this.language = language;
         this.sourceCountry = sourceCountry;
         this.targetCountry = targetCountry;
+        logger.debug("Initialized {}", this);
     }
 
     public String translate(String original) {
+
         boolean loaded = true;
         if (properties == null) {
             loaded = false;
@@ -86,5 +88,14 @@ public class CountryCountryTranslation {
             result = wordJoiner.toString();
         }
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "CountryCountryTranslation{" +
+                "language='" + language + '\'' +
+                ", sourceCountry='" + sourceCountry + '\'' +
+                ", targetCountry='" + targetCountry + '\'' +
+                '}';
     }
 }
