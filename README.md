@@ -2,6 +2,11 @@
 Auto generate resource bundle translations
 
 ## Getting started
+1. Add the plugin to your build.gradle and define your rousourceBundleI18n as shown below
+2. run the i18n target
+```groovy
+gradlew i18n
+```
 ### Simple configuration
 ```groovy
 plugins {
