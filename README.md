@@ -26,7 +26,7 @@ resourceBundleI18n {
     translationUrl = "http://localhost:5000"
     targetLanguages = ["en", "es", "de", "fr"]
     bundleName = "com.example.bundle" //this will match src/main/resources/com/example/bundle.properties as the source
-    client = "LIBRETRANSLATE" //the client to use to communicate with the translationUr
+    client = "LIBRETRANSLATE" //the client to use to communicate with the translationUrl
             // ("LIBRETRANSLATE" is also the default value as it is the only client supported at this time)
     apiKey = "some key"
 }

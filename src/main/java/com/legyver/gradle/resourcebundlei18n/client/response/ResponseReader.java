@@ -2,16 +2,12 @@ package com.legyver.gradle.resourcebundlei18n.client.response;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.nio.charset.StandardCharsets;
-import java.util.function.Function;
-import java.util.function.Supplier;
 
 /**
  * Read a response from a HttpURLConnection
- * @throws IOException if there is an error getting the response
  */
 public class ResponseReader {
     /**
