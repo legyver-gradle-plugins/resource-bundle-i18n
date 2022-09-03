@@ -61,12 +61,20 @@ public class CountryCountryTranslation {
             while (scanner.hasNext()) {
                 String originalWord = scanner.next();
                 String word = originalWord;
+                String prefix;
                 String suffix = null;
                 Matcher wordMatcher = lettersOnly.matcher(originalWord);
                  if (wordMatcher.find()) {
                      word = wordMatcher.group(1);
                      suffix = wordMatcher.group(3);
                  }
+                 int indexWord = originalWord.indexOf(word);
+                 if (indexWord > 0) {
+                     prefix = originalWord.substring(0, indexWord);
+                 } else {
+                     prefix = "";
+                 }
+
                  if (suffix == null) {
                      suffix = "";
                  }
@@ -83,7 +91,7 @@ public class CountryCountryTranslation {
                         word = replacement;
                     }
                 }
-                wordJoiner.add(word + suffix);
+                wordJoiner.add(prefix + word + suffix);
             }
             result = wordJoiner.toString();
         }

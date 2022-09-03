@@ -43,4 +43,11 @@ public class CountryCountryTranslationTest {
         assertThat(countryCountryTranslation.translate("Authorization is required.")).isEqualTo("Authorisation is required.");
     }
 
+    @Test
+    public void parameterizedMessageEnToGB() {
+        CountryCountryTranslation countryCountryTranslation = new CountryCountryTranslation("en", "US", "GB");
+        String translated = countryCountryTranslation.translate("Build: {0} built on {1}");
+        assertThat(translated).isEqualTo("Build: {0} built on {1}");
+    }
+
 }
