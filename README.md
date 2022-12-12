@@ -11,7 +11,7 @@ gradlew i18n
 ```groovy
 plugins {
     //...
-    id 'com.legyver.resource-bundle-i18n' version'1.0.0'
+    id 'com.legyver.resource-bundle-i18n' version'1.0.3'
 }
 
 resourceBundleI18n {

@@ -18,6 +18,7 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ResourceBundleI18nPlugin implements Plugin<Project> {
     private static final Logger logger = Logging.getLogger(ResourceBundleI18nPlugin.class);
@@ -46,7 +47,10 @@ public class ResourceBundleI18nPlugin implements Plugin<Project> {
         if (targetLanguages == null || targetLanguages.size() == 0) {
             throw new RuntimeException("Target Languages are required");
         }
-        logger.debug("Found target languages: {}", bundleName);
+        if (logger.isDebugEnabled()) {
+            String targetLanguageCSV = targetLanguages.stream().collect(Collectors.joining(", "));
+            logger.debug("Found target languages: {}", targetLanguageCSV);
+        }
 
         String sTranslationUrl = extension.getTranslationUrl().get();
         logger.debug("Found translation url: {}", sTranslationUrl);

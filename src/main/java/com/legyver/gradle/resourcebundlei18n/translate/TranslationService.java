@@ -162,6 +162,7 @@ public class TranslationService {
                     translatedToCountry = countrySpecificTranslation.country;
                 } else {
                     translation = client.getTranslation(translateMe, sourceLanguage, tLanguage);
+                    logger.debug("Translated '{}' to '{}'", translateMe, translation);
                     translatedToLanguage = tLanguage;
                     translatedToCountry = defaultCountryForLanguage.getDefaultCountryForLanguage(tLanguage);
                     CountrySpecificTranslation countryCountryTranslation = new CountrySpecificTranslation(translation, translatedToCountry);
@@ -175,6 +176,7 @@ public class TranslationService {
                 //this has been translated from the source language to the target language but not including country variances
                 translation = new CountryCountryTranslation(tLanguage, translatedToCountry, tCountry).translate(translation);
             }
+            translation = ArgumentSanitizer.sanitize(translation);
             properties.put(key, translation);
         }
         return properties;
