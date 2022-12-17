@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 /**
  * Argument operator to workaround how LibreTranslate handles special characters when translating from to languages like spanish.
  * Example problem areas:
- *    'Hello, {0} my {1}' translated to Spanish ends up 'Hola.'
+ *    'Hello, {0}' translated to Spanish ends up 'Hola.'
  *    'Hello, {0} my {1}!' translated to Spanish ends up '¡Hola, mi!'
  *
  * The general algorithm is to swap out the argument with a UUID (which we assume will not be translated), and then do the process
