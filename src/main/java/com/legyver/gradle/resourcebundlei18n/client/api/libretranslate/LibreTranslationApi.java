@@ -1,6 +1,7 @@
 package com.legyver.gradle.resourcebundlei18n.client.api.libretranslate;
 
 import com.legyver.gradle.resourcebundlei18n.client.api.AbstractTranslationApi;
+import com.legyver.gradle.resourcebundlei18n.client.api.ArgumentOperator;
 import com.legyver.gradle.resourcebundlei18n.client.request.json.MessageFormatJsonRequestAdapter;
 import com.legyver.gradle.resourcebundlei18n.client.response.decorator.LanguageIdentificationMapDecorator;
 import com.legyver.gradle.resourcebundlei18n.client.response.decorator.TranslationMapDecorator;
@@ -28,5 +29,10 @@ public class LibreTranslationApi extends AbstractTranslationApi {
     @Override
     protected String getEndpointForTranslationRequest() {
         return "/translate";
+    }
+
+    @Override
+    public ArgumentOperator getArgumentOperator(String textToTranslate) {
+        return new LibreTranslateArgumentOperator(textToTranslate);
     }
 }

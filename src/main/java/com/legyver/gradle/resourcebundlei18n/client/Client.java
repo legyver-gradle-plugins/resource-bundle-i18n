@@ -1,6 +1,7 @@
 package com.legyver.gradle.resourcebundlei18n.client;
 
 import com.legyver.core.exception.CoreException;
+import com.legyver.gradle.resourcebundlei18n.client.api.ArgumentOperator;
 import com.legyver.gradle.resourcebundlei18n.client.api.DetectLanguageApiStrategy;
 import com.legyver.gradle.resourcebundlei18n.client.api.TranslationApi;
 import com.legyver.gradle.resourcebundlei18n.client.api.TranslationApiStrategy;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 
 public class Client {
     private static final Logger logger = Logging.getLogger(Client.class);
@@ -83,10 +85,16 @@ public class Client {
         httpURLConnection.addRequestProperty("accept", translationApi.getAcceptedType());
         httpURLConnection.addRequestProperty("Content-Type", translationApi.getContentType());
 
-        String message = translationApi.makeRequestBody(textToTranslate, sourceLanguage, targetLanguage);
+        //translations with some translators (LibreTranslate) translating into specific languages (Spanish) often remove argument placeholders
+        ArgumentOperator argumentOperator = translationApi.getArgumentOperator(textToTranslate);
+        String translatableText = argumentOperator.getTranslatableText(targetLanguage);
+
+        String message = translationApi.makeRequestBody(translatableText, sourceLanguage, targetLanguage);
         requestWriter.write(httpURLConnection, message);
         String responseAsString = responseReader.read(httpURLConnection);
-        return translationApi.getResult(responseAsString);
+        String translation = translationApi.getResult(responseAsString);
+
+        return argumentOperator.restoreArgsInTranslatedText(translation);
     }
 
     private URL append(String endpoint) throws MalformedURLException {

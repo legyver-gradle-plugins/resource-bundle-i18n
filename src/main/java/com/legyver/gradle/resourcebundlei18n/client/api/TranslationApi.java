@@ -12,4 +12,6 @@ public interface TranslationApi {
     String getResult(String responseAsString) throws CoreException;
 
     String getEndpoint();
+
+    ArgumentOperator getArgumentOperator(String textToTranslate);
 }

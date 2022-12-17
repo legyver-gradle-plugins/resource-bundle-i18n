@@ -2,7 +2,7 @@
 Auto generate resource bundle translations
 
 ## Getting started
-1. Add the plugin to your build.gradle and define your rousourceBundleI18n as shown below
+1. Add the plugin to your build.gradle and define your resourceBundleI18n as shown below
 2. run the i18n target
 ```groovy
 gradlew i18n
@@ -11,7 +11,7 @@ gradlew i18n
 ```groovy
 plugins {
     //...
-    id 'com.legyver.resource-bundle-i18n' version'1.0.3'
+    id 'com.legyver.resource-bundle-i18n' version '1.0.4'
 }
 
 resourceBundleI18n {
